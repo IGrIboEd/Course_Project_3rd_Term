@@ -26,6 +26,9 @@
     <ClInclude Include="Classes.h" />
     <ClInclude Include="Prot.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="users.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

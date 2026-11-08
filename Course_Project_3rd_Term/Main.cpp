@@ -51,7 +51,7 @@ int main() {
     }
 
     catch (const exception& e) {
-        cout << "Произошла ошибка: " << e.what() << endl;
+        cout << "Произошла ошибка:" << e.what() << endl;
         return 1;
     }
 

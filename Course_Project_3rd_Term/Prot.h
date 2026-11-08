@@ -92,7 +92,7 @@ namespace telecom {
     T readNumber(const std::string& prompt, T minValue, T maxValue) {
         while (true) {
 
-            std::cout << prompt << ": ";
+            std::cout << prompt;
             std::istringstream ss(inputLine());
 
             T value;
@@ -107,6 +107,4 @@ namespace telecom {
 
 
 
-
-  
 }

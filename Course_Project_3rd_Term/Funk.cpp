@@ -1,6 +1,6 @@
 ﻿#define NOMINMAX
-#include <windows.h>
 #define _CRT_SECURE_NO_WARNINGS
+#include <windows.h>
 #include <ctime>
 #include <cctype>
 #include "Prot.h"
@@ -57,7 +57,7 @@ namespace telecom {
 
     string inputText(const string& prompt) {
         while (true) {
-            cout << prompt << ": ";
+            cout << prompt;
             string s = trim(inputLine());
             if (s.empty())
                 cout << "Поле не может быть пустым" << endl;
@@ -172,7 +172,7 @@ namespace telecom {
 
     Date readDate(const string& prompt) {
         while (true) {
-            cout << prompt << " (дд.мм.гггг): ";
+            cout << prompt << " (дд.мм.гггг):";
             istringstream ss(inputLine());
             Date date;
             char extra;
@@ -327,7 +327,7 @@ namespace telecom {
                 cout << "6 - Пользователи системы\n"
                 << "7 - Журнал действий\n";
             cout << "0 - Выйти из аккаунта" << endl;
-            choice = readNumber<int>("Ваш выбор", 0, isAdmin ? 7 : 5);
+            choice = readNumber<int>("Ваш выбор:", 0, isAdmin ? 7 : 5);
             switch (choice) {
             case 1:
                 tariffsMenu(db);
@@ -364,7 +364,7 @@ namespace telecom {
                 << "2 - Добавить\n"
                 << "3 - Удалить\n"
                 << "0 - Назад" << endl;
-            choice = readNumber<int>("Ваш выбор", 0, 3);
+            choice = readNumber<int>("Ваш выбор:", 0, 3);
             switch (choice) {
             case 1:
                 //пусто
@@ -394,7 +394,7 @@ namespace telecom {
                 << "6 - Редактировать\n"
                 << "7 - Удалить\n";
             cout << "0 - Назад" << endl;
-            choice = readNumber<int>("Ваш выбор", 0, isAdmin ? 7 : 4);
+            choice = readNumber<int>("Ваш выбор:", 0, isAdmin ? 7 : 4);
             switch (choice) {
             case 1:
                 //пусто
@@ -438,7 +438,7 @@ namespace telecom {
             if (isAdmin)
                 cout << "9 - Удалить\n";
             cout << "0 - Назад" << endl;
-            choice = readNumber<int>("Ваш выбор", 0, isAdmin ? 9 : 8);
+            choice = readNumber<int>("Ваш выбор:", 0, isAdmin ? 9 : 8);
             switch (choice) {
             case 1:
                 //пусто
@@ -564,9 +564,9 @@ namespace telecom {
         system("cls");
         cout << "---- Вход в систему ----" << endl;
         for (int attempt = 1; attempt <= 5; attempt++) {
-            cout << "Логин: ";
+            cout << "Логин:";
             string login = trim(inputLine());
-            cout << "Пароль: ";
+            cout << "Пароль:";
             string password = inputLine();
             for (const auto& account : db.accounts)
                 if (account->getLogin() == login && account->getHash() == Account::hashPassword(password))

@@ -311,9 +311,7 @@ namespace telecom{
     public:
 
         Account() {}
-        Account(const std::string& newLogin, unsigned long long newHash, int newRole)
-            : login(newLogin), hash(newHash), role(newRole) {
-        }
+        Account(const std::string& newLogin, unsigned long long newHash, int newRole) : login(newLogin), hash(newHash), role(newRole) {}
 
         const std::string& getLogin() const {
             return login;
