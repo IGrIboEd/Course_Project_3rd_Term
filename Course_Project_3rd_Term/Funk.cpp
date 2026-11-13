@@ -73,7 +73,6 @@ namespace telecom {
 
     //функции для файлов -----------------------------------
 
-
     string readField(istream& in) {
         string field;
 
@@ -105,6 +104,34 @@ namespace telecom {
         return value;
 
     }
+
+
+    void saveTariffs(const Database& db) {
+        saveToFile(db.tariffs, file_tarrifs);
+    }
+
+    void saveClients(const Database& db) {
+        saveToFile(db.clients, file_clients);
+    }
+
+    void saveAccounts(const Database& db) {
+        saveToFile(db.accounts, file_users);
+    }
+
+    void loadAll(Database& db) {
+        loadFromFile(db.tariffs, file_tarrifs, readTariff);
+        loadFromFile(db.clients, file_clients, readClient);
+        loadFromFile(db.accounts, file_users, readAccount);
+
+        if (db.accounts.size() == 0) {
+            shared_ptr<Account> admin = make_shared<Account>("admin", Account::hashPassword("admin"), 1);
+            admin->setId(1);
+            db.accounts.push_back(admin);
+
+            saveAccounts(db);
+        }
+    }
+
 
     //функции для дат -----------------------------------
 
@@ -155,7 +182,6 @@ namespace telecom {
         return in;
     }
 
-    //переписываю
     Date Date::today() {
         time_t now = time(nullptr);
         tm* local = localtime(&now);
@@ -215,7 +241,7 @@ namespace telecom {
             + over(usedGb, gb) * priceGb;
     }
 
-    double UnlimitedTariff::calculateCost(int usedMinutes, int usedSms, double /*usedGb*/) const {
+    double UnlimitedTariff::calculateCost(int usedMinutes, int usedSms, double) const {
         // интернет безлимитный, поэтому гигабайты не учитываются
         return fee + over(usedMinutes, minutes) * priceMinute
             + over(usedSms, sms) * priceSms;
@@ -531,31 +557,7 @@ namespace telecom {
     //функции для файлов --------------------------------------
 
 
-    void saveTariffs(const Database& db) {
-        saveToFile(db.tariffs, file_tarrifs);
-    }
-
-    void saveClients(const Database& db) {
-        saveToFile(db.clients, file_clients);
-    }
-
-    void saveAccounts(const Database& db) {
-        saveToFile(db.accounts, file_users);
-    }
-
-    void loadAll(Database& db) {
-        loadFromFile(db.tariffs, file_tarrifs, readTariff);
-        loadFromFile(db.clients, file_clients , readClient);
-        loadFromFile(db.accounts, file_users, readAccount);
-
-        if (db.accounts.size() == 0) {
-            shared_ptr<Account> admin = make_shared<Account>("admin", Account::hashPassword("admin"), 1);
-            admin->setId(1);
-            db.accounts.push_back(admin);
-
-            saveAccounts(db);
-        }
-    }
+    
 
 
     //регистрация

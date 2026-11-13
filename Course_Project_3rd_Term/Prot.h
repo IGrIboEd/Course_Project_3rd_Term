@@ -6,27 +6,52 @@
 
 namespace telecom {
 
+    //доп функции
+    std::string inputLine();
     void waitEnter();
     void printLine(char symbol, int length);
     std::string money(double value);
-
     std::string trim(const std::string& s);
-
-    std::string inputLine();
     std::string inputText(const std::string& prompt);
 
+    //функции файлов
+    
+    std::string readField(std::istream& in);
+    int toInt(const std::string& s);
+    double toDouble(const std::string& s);
+
+    void saveTariffs(const Database& db);
+    void saveClients(const Database& db);
+    void saveAccounts(const Database& db);
     void loadAll(Database& db);
 
+    //функции для дат
+
+    Date readDate(const std::string& prompt);
+
+    //функции для тарифов
+
+    std::shared_ptr<Tariff> createTariff(int type);
+    
+    //функции для чтения
+
+    std::shared_ptr<Tariff> readTariff(std::istream& in);
+    std::shared_ptr<Client> readClient(std::istream& in);
+    std::shared_ptr<Account> readAccount(std::istream& in);
+
+    //работа с учётками
 
     std::shared_ptr<Account> loginUser(Database& db);
     std::shared_ptr<Account> createAccount(Database& db, int role);
     void registerUser(Database& db);
 
+    //менюшки
 
     void mainMenu(Database& db);
     void tariffsMenu(Database& db);
     void clientsMenu(Database& db);
     void usersMenu(Database& db);
+
 
     void runAction(void (*action)(Database&), Database& db);
 
